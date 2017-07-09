@@ -17,7 +17,7 @@ Os dados foram coletados pelo imdb, contendo nomes de séries rating entre outro
 No codigo abaixo o csv contendo os dados das séries é importado.
 ```{r}
 
-data_all_shows <- read.csv(file="./series_from_imdb.csv", header=TRUE, sep=",")
+data_all_shows <- read.csv(file="series_from_imdb.csv", header=TRUE, sep=",")
 
 ```
 
