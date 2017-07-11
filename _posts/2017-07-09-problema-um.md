@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Lab01 AD1"
-date: 2017-07-09 20:41:38
+date: 2017-07-11 19:16:33
 published: true
 tags: [htmlwidgets, r]
 ---
@@ -94,13 +94,13 @@ median_sherlock
 {% endhighlight %}
 
 Comparando as 3 medianas, temos que **Sherlock** é a série melhor avaliada com uma pequena diferença de *0.5* para série que tem a pior avaliação dentre as séries selecionadas.
-![plot of chunk unnamed-chunk-7](/figure/source/prob1/2017-07-09-problema-um/unnamed-chunk-7-1.png)
+![plot of chunk unnamed-chunk-7](/figure/source/2017-07-09-problema-um/unnamed-chunk-7-1.png)
 
 ## b. Qual das séries que você escolheu tem episódios de qualidade mais irregular segundo o IMDB? A diferença é grande? Pequena?
 
 Para ter uma melhor análise podemos observar como as avaliações são distribuidas em um gráfico BoxPlot.
 
-![plot of chunk unnamed-chunk-8](/figure/source/prob1/2017-07-09-problema-um/unnamed-chunk-8-1.png)
+![plot of chunk unnamed-chunk-8](/figure/source/2017-07-09-problema-um/unnamed-chunk-8-1.png)
 
 
 A partir desse gráfico podemos ver que a mediana do boxplot de **Sherlok** está acima das outras mas o bloxplot dele é o que apresenta maior espalhamento dos dados,já o de **How to Get Away with Murder** parece ser mais preciso e com notas mais constantes e proximas umas das outras, ou seja, **Sherlok** é o que possui notas mais irregulares dos 3 casos.
@@ -260,7 +260,7 @@ min(tv_shows_resume$variation)
 ## [1] -0.9
 {% endhighlight %}
 A maior queda foi de -0.9 que foi na 8 temporada de **Dexter**
-![plot of chunk unnamed-chunk-14](/figure/source/prob1/2017-07-09-problema-um/unnamed-chunk-14-1.png)
+![plot of chunk unnamed-chunk-14](/figure/source/2017-07-09-problema-um/unnamed-chunk-14-1.png)
 
 
 #Series com poucos episódios são melhores avaliadas que as com maior numero de episódios?
@@ -350,7 +350,7 @@ Podemos tentar ver isso através de um gráfico boxplot
 ## Joining, by = c("series_name", "eps", "median", "type")
 {% endhighlight %}
 
-![plot of chunk unnamed-chunk-17](/figure/source/prob1/2017-07-09-problema-um/unnamed-chunk-17-1.png)
+![plot of chunk unnamed-chunk-17](/figure/source/2017-07-09-problema-um/unnamed-chunk-17-1.png)
 Aparentemente amabas as categorias tem o mesmo espalhamento.Podemos ver isso numericamente também.
 
 
