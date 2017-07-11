@@ -3,7 +3,7 @@ title: Portfólio de análises
 email: juan.satyro@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Portfólio de análises criadas para a disciplina de AD1
-url: "https://JuanAlmeida12.github.io/portfolio-analises/" # the base hostname & protocol for your site
+url: "https://JuanAlmeida12.github.io/analises-pf/" # the base hostname & protocol for your site
 github_username:  JuanAlmeida12
 permalink: /:year/:month/:title.html
 
