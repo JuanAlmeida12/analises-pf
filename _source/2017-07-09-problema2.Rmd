@@ -1,0 +1,25 @@
+---
+layout: post
+title: "Lab02 AD1"
+date: `r Sys.time()`
+published: true
+tags: [htmlwidgets, r]
+---
+
+```{r, fig.width=6, fig.height=6}
+library(tidyverse, warn.conflicts = FALSE) 
+library(plotly)
+
+data <- read.csv(file="./series_from_imdb.csv", header=TRUE, sep=",")
+
+tv_shows_resume <- group_by(data,series_name,season) %>%
+  summarize(eps = n(), median = median(UserRating, na.rm = T))
+
+g <- ggplot(tv_shows_resume, aes(season, series_name)) +
+  geom_point(aes(colour = median, size = median)) +
+  scale_colour_gradient(low = "white", high = "black") +
+  xlab('Temporada') + 
+  ylab('    ')
+ggplotly(g)
+```
+

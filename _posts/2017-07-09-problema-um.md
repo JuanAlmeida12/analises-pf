@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Lab01 AD1"
-date: 2017-07-11 19:16:33
+date: 2017-07-11 19:19:43
 published: true
 tags: [htmlwidgets, r]
 ---
