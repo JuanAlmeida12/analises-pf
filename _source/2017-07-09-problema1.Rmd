@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Lab01 AD1"
+title: "Analise sobre filmes"
 date: `r Sys.time()`
 published: true
 tags: [htmlwidgets, r]
@@ -8,7 +8,6 @@ tags: [htmlwidgets, r]
 ```{r echo=FALSE}
 library("dplyr")
 ```
-#Checkpoint 1
 
 #Importando os dados
 
@@ -95,101 +94,3 @@ sd(filter(data_sub, series_name == "How to Get Away with Murder")$UserRating)
 ```
 
 Podemos ver que **Sherlok** possui a maior dipersão dentre as 3 séries selecionadas.
-
-#Checkpoint 4
-
-#As series que tiveram uma queda de desempenho após uma temporada com alto rating?
-
-A primeira pergunta a se fazer é: *quando uma temporada é considerada com alto rating?* Utilizaremos a mediana da temporada e verificaremos se ela é alta, vamos definir que abaixo de 8.7 seja de baixo rating.
-
-Então vamos agrupar as séries por temporada fazendo a mediana de cada temporada.
-```{r}
-tv_shows_resume <- group_by(data_all_shows,series_name,season) %>%
-  summarize(eps = n(), median = median(UserRating, na.rm = T))
-
-tv_shows_resume
-```
-
-Agora vamos ver a variação de uma temporada para outra para cada série.
-```{r}
-tv_shows_resume <- group_by(data_all_shows,series_name,season) %>%
-  summarize(eps = n(), median = median(UserRating, na.rm = T)) %>%
-  mutate(variation=(median - lag(median)), last_season = lag(median))
-
-tv_shows_resume
-```
-
-Assim podemos, por fim filtrar, os dados para terem apenas as series que tinham alto rating depois cairam.
-
-```{r}
-tv_shows_resume <- group_by(data_all_shows,series_name,season) %>%
-  summarize(eps = n(), median = median(UserRating, na.rm = T)) %>%
-  mutate(variation=(median - lag(median)), last_season = lag(median)) %>%
-  filter(variation < 0, last_season >= 8.7, median < 8.7)
-
-tv_shows_resume
-```
-
-Essas são as séries e as temporadas em que houve uma baixa na qualidade e o rating diminuiu.
-<br>
-Isso levanta outra pergunta:*Qual série teve a maior queda no rating?*
-<br>
-```{r}
-min(tv_shows_resume$variation)
-
-```
-A maior queda foi de -0.9 que foi na 8 temporada de **Dexter**
-```{r echo=FALSE}
-ggplot(tv_shows_resume, aes(tv_shows_resume$series_name, tv_shows_resume$variation)) +
-  geom_bar(stat="identity")
-```
-
-
-#Series com poucos episódios são melhores avaliadas que as com maior numero de episódios?
-
-Para isso temos que dividir as séries em dois grupos,o com muitos episodios e o com poucos episodios. Vamos definir que uma série que tenho mais de 25 episodios se encaixa no grupo com muitos episodios.
-```{r}
-big_shows <- group_by(data_all_shows,series_name) %>%
-  summarize(eps = n(), median = median(UserRating, na.rm = T)) %>%
-  filter(eps > 25)
-big_shows
-
-small_shows <- group_by(data_all_shows,series_name) %>%
-  summarize(eps = n(), median = median(UserRating, na.rm = T)) %>%
-  filter(eps <= 25)
-small_shows
-```
-
-Podemos comparar as medianas dos dois grupos para vermos qual se dará melhor.
-```{r}
-median(big_shows$median)
-median(small_shows$median)
-```
-Então sim, séries com menos de 25 episódios são melhores avaliadas que as que possuem mais.
-<br>
-Gerando outra pergunta:**Mas qual a variancia desses dados e qual está mais espalhado?**
-<br>
-Podemos tentar ver isso através de um gráfico boxplot
-```{r echo=FALSE}
-big_shows <- big_shows %>% mutate(type = "big")
-
-small_shows <- small_shows %>% mutate(type = "small")
-
-data2 <- full_join(big_shows,small_shows)
-
-ggplot(data2, aes(data2$type, data2$median)) +
-  geom_point(shape=1) +
-  geom_boxplot()
-```
-Aparentemente amabas as categorias tem o mesmo espalhamento.Podemos ver isso numericamente também.
-
-```{r}
-sd(big_shows$median)
-
-sd(small_shows$median)
-```
-
-Numericamente as séries maiores possuem maior espalhamento, o que esperado já que são mais temporadas e mais episódios.
-
-Então podemos concluir que séries com menor numero de episódios levam vantagem contra as grandes séries, também vimos quais séries tiveram quedas após uma boa temporada. 
-
